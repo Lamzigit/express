@@ -1,13 +1,11 @@
 package main.com.express.entity;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by linzhijie on 2016/12/29.
  */
+@Entity
 public class Address {
 
     @Id
