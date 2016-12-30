@@ -1,6 +1,6 @@
 package main.com.express.dao;
 
-import main.com.express.entity.Order;
+import main.com.express.entity.Orders;
 
 import java.util.List;
 
@@ -9,13 +9,13 @@ import java.util.List;
  */
 public interface OrderDao {
 
-    public Order getOrderById(int id);
+    public Orders getOrderById(int id);
 
-    public List<Order> getAllOrder();
+    public List<Orders> getAllOrder();
 
-    public boolean addOrder(Order order);
+    public boolean addOrder(Orders orders);
 
     public boolean delOrder(int id);
 
-    public boolean updOrder(Order order);
+    public boolean updOrder(Orders orders);
 }
