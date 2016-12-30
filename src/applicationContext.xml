@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-    <bean id="date" class="java.util.Date"></bean>
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+
 
     <!-- 配置数据源-->
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" >
@@ -18,17 +20,17 @@
         <!-- 设置sessionFactory的数据源属性-->
         <property name="dataSource" ref="dataSource" />
 
-        <!-- 扫描实体类里的注解
+        <!-- 扫描实体类里的注解-->
         <property name="annotatedClasses">
             <list>
-                <value>com.express.*</value>
-                <value>com.express.entity.Order</value>
-                <value>com.express.entity.Address</value>
-                <value>com.express.entity.Manage</value>
+                <value>main.com.express.entity.Orders</value>
+                <value>main.com.express.entity.Address</value>
+                <value>main.com.express.entity.Manager</value>
+                <value>main.com.express.entity.User</value>
             </list>
-        </property>-->
+        </property>
 
-        <!--设置hibernate的 相关属性，这样就省去了hibernate.cfg.xml文件-->
+        <!--设置hibernate的 相关属性，省去了hibernate.cfg.xml文件-->
         <property name="hibernateProperties">
             <props>
                 <!--hibernate.dialect 只是Hibernate使用的数据库方言,就是要用Hibernate连接那种类型的数据库服务器。-->
@@ -42,4 +44,26 @@
             </props>
         </property>
     </bean>
+
+    <!-- 配置一个声明式事务管理器-->
+    <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <!-- 开启事务控制的注解支持 -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+        <!--<tx:advice id="txAdvice" transaction-manager="transactionManager">
+            <tx:attributes>
+                <tx:method name="add*" propagation="REQUIRED"/>
+                <tx:method name="delete*" propagation="REQUIRED"/>
+                <tx:method name="update*" propagation="REQUIRED"/>
+                <tx:method name="get*" read-only="true" propagation="NOT_SUPPORTED"/>
+                <tx:method name="*" read-only="true"/>
+            </tx:attributes>
+        </tx:advice>
+        <aop:config>
+            <aop:pointcut id="allServiceMethod" expression="execution(* com.express.*.*(..))"/>
+            <aop:advisor pointcut-ref="allServiceMethod" advice-ref="txAdvice"/>
+        </aop:config>-->
 </beans>
