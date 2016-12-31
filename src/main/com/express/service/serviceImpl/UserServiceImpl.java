@@ -4,12 +4,14 @@ import main.com.express.dao.UserDao;
 import main.com.express.entity.User;
 import main.com.express.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * Created by linzhijie on 2016/12/31.
  */
+@Service
 public class UserServiceImpl implements UserService{
 
     @Autowired

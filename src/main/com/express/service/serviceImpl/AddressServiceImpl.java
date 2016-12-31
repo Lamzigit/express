@@ -4,12 +4,14 @@ import main.com.express.dao.AddressDao;
 import main.com.express.entity.Address;
 import main.com.express.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * Created by linzhijie on 2016/12/31.
  */
+@Service
 public class AddressServiceImpl implements AddressService{
 
     public void setAddressDao(AddressDao addressDao) {
