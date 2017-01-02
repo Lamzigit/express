@@ -27,9 +27,9 @@ public class OrderDaoImpl implements OrderDao{
     private SessionFactory sessionFactory;
 
     @Override
-    public Orders getOrderById(int id) {
+    public List<Orders> getOrdersByphone(String phone) {
         Session session = sessionFactory.openSession();
-        return (Orders)session.createCriteria(Orders.class).add(Restrictions.eq("id",id)).uniqueResult();
+        return (List<Orders>)session.createCriteria(Orders.class).add(Restrictions.eq("phone",phone)).list();
     }
 
     @Override
