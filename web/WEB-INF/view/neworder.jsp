@@ -22,19 +22,19 @@
         <div class="row">
             <!--新订单表单-->
             <div class="col-md-6 col-md-offset-1" ng-app="orderAdd">
-                <form class="form-horizontal" role="form" ng-controller="orderController">
+                <form class="form-horizontal" role="form" ng-controller="addController">
                     <!--寄件人-->
                     <div class="form-group">
-                        <label for="phone" class="col-sm-2 control-label">寄件人</label>
+                        <label for="user" class="col-sm-2 control-label">寄件人</label>
                         <div class="col-sm-10">
-                            <label for="phone" class="col-sm-2 control-label" ng-model="username">${user.username}</label>
+                            <label id="user" class="col-sm-2 control-label" ng-model="username">${user.username}</label>
                         </div>
                     </div>
                     <!--寄件人电话-->
                     <div class="form-group">
                         <label for="phone" class="col-sm-2 control-label">寄件电话</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="phone"  name="phone" disabled value="${user.phone}" ng-model="phone">
+                            <label id="phone" class="col-sm-2 control-label" ng-model="phone">{{phone=${user.phone}}}</label>
                         </div>
                     </div>
                     <!--发货地址-->
@@ -67,10 +67,13 @@
                             <label  class="col-sm-2 control-label" ng-model="price">{{price+" 元"}}</label>
                         </div>
                     </div>
-                    <!--用户id-->
-                    <input type="hidden" id="uid"  name="uid" value='${user.id}' ng-model="uid">
                     <!--货物状态-->
-                    <input type="hidden" id="state"  name="uid" value="等待收件" ng-model="state">
+                    <div class="form-group">
+                        <label for="phone" class="col-sm-2 control-label">寄件电话</label>
+                        <div class="col-sm-10">
+                            <label id="state" class="col-sm-2 control-label" ng-model="state">{{state="waiting"}}</label>
+                        </div>
+                    </div>
                     <!--提交订单-->
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
@@ -80,8 +83,8 @@
                 </form>
             </div>
             <!--历史订单表单-->
-            <div class="col-md-4">
-                <div class="row">
+            <div class="col-md-4" ng-app="orderList">
+                <div class="row" ng-controller="listController">
                     <div class="col-md-4 col-md-offset-4">
                         <button class="btn btn-info">查看历史订单</button>
                     </div>
