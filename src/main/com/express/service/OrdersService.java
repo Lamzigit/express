@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface OrdersService {
 
-    public Orders getOrderById(int id);
+    public List<Orders> getOrdersByphone(String phone);
 
     public List<Orders> getAllOrder();
 
