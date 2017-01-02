@@ -1,8 +1,10 @@
 /**
  * Created by linzhijie on 2017/1/1.
  */
-var appAdd = angular.module("orderAdd",[]);
-appAdd.controller("addController",function ($scope,$http) {
+
+var orderApp = angular.module("orderApp",['ngRoute']);
+orderApp.controller("orderController",function ($scope,$http) {
+    //实时计算价格
     $scope.countPrice = function () {
         if($scope.weight>10&&$scope.weight<50)
             $scope.price = 10 + ($scope.weight-2)*1.3;//1kg起步,底价10元，超出部分按1.3倍叠加
@@ -11,7 +13,7 @@ appAdd.controller("addController",function ($scope,$http) {
         else
             $scope.price = 10;
     }
-
+    //异步提交表单
     $scope.postOrder = function () {
      $http({
             url : 'http://localhost:8080/express/order/add',
@@ -24,29 +26,31 @@ appAdd.controller("addController",function ($scope,$http) {
                 price : $scope.price,
                 state : $scope.state,
             }
-
-        })
-        /*console.log(
-            "phone " + $scope.phone + "\n" +
-            "saddress " + $scope.saddress + "\n" +
-            "raddress " + $scope.raddress + "\n" +
-            "weight " + $scope.weight + "\n" +
-            "price " + $scope.price + "\n" +
-            "uid " + $scope.uid + "\n" +
-            "state " + $scope.state);*/
-
+        }).success(function (data) {
+         $scope.hasAdd=data.hasAdd;
+         $scope.transnum = data.transnum;
+     })
+        console.log($scope.phone);
     }
-});
-
-var appList = angular.module("orderList",[]);
-appList.controller("listController",function ($scope,$http) {
-    $scope.getOrderList= function () {
+    //获取用户历史订单列表
+    $scope.getOrderList = function () {
         $http({
-            url : 'http://localhost:8080/express/order/list',
-            methode : post,
-            params : {
-                phone : $scope.phone
+            url: 'http://localhost:8080/express/order/list',
+            methode: post,
+            params: {
+                phone: $scope.phone
             }
+        }).success(data,function () {
+            console.log(data);
         });
+    }
+    //获取发货地址
+    $scope.tempaddress = "";
+    $scope.getSaddress = function (address) {
+        $scope.tempaddress =$scope.tempaddress+address;
+        if($scope.saddress.scity != undefined)
+        //var map = new BMap.Map("vv"); // 创建地图实例
+        map.centerAndZoom($scope.tempaddress,15);
+        console.log($scope.tempaddress);
     }
 });
