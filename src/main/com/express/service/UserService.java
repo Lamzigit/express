@@ -18,4 +18,6 @@ public interface UserService {
     public boolean delUser(int id);
 
     public boolean updUser(User user);
+
+    public boolean hasUser(String phone);
 }
