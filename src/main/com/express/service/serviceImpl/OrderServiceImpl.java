@@ -18,8 +18,8 @@ public class OrderServiceImpl implements OrdersService {
     private OrderDao orderDao;
 
     @Override
-    public Orders getOrderById(int id) {
-        return orderDao.getOrderById(id);
+    public List<Orders> getOrdersByphone(String phone) {
+        return orderDao.getOrdersByphone(phone);
     }
 
     @Override
