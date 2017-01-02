@@ -6,36 +6,35 @@ import javax.persistence.*;
  * Created by linzhijie on 2016/12/29.
  */
 @Entity
-public class Order {
-    private static final long serialVersionUID = 2702918674046865911L;
-
+@Table(name = "orders")
+public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "phone" ,length = 45)
+    @Column(name = "phone" ,length = 45,nullable = false)
     private String phone;
 
-    @Column(name = "sAddress" , length = 45)
+    @Column(name = "sAddress" , length = 45,nullable = false)
     private String saddress;
 
-    @Column(name = "rAddress" , length = 45)
+    @Column(name = "rAddress" , length = 45,nullable = false)
     private String raddress;
 
-    @Column(name = "transNum" , length = 45)
+    @Column(name = "transNum" , length = 45,nullable = false)
     private String transnum;
 
-    @Column(name = "weight")
+    @Column(name = "weight" , nullable = false)
     private double weight;
 
-    @Column(name = "price")
+    @Column(name = "price" , nullable = false)
     private double price;
 
-    @Column(name = "state" , length = 45)
+    @Column(name = "state" , length = 45 , nullable = false)
     private String state;
 
-    @Column(name = "uId")
-    private int uid;
+    @Column(name = "uId" , nullable = false)
+    private Integer uid;
 
     public Integer getId() {
         return id;
@@ -77,9 +76,6 @@ public class Order {
         this.saddress = saddress;
     }
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
 
     public String getState() {
         return state;

@@ -6,19 +6,23 @@ import javax.persistence.*;
  * Created by linzhijie on 2016/12/29.
  */
 @Entity
+@Table(name = "address")
 public class Address {
 
+    private static final long serialVersionUID = 1304053983694294061L;
+
     @Id
+    @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "sAddress" , length = 45)
+    @Column(name = "sAddress" , length = 45,nullable = false)
     private String saddress;
 
-    @Column(name = "rAddress" , length = 45)
+    @Column(name = "rAddress" , length = 45,nullable = false)
     private String raddress;
 
-    @Column(name = "phone")
+    @Column(name = "phone" ,length = 45,nullable = false)
     private String phone;
 
     public Integer getId() {

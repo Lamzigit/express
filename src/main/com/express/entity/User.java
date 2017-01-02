@@ -6,6 +6,7 @@ import javax.persistence.*;
  * Created by linzhijie on 2016/12/29.
  */
 @Entity
+@Table(name = "users")
 public class User {
     private static final long serialVersionUID = 2702918674046865911L;
 
