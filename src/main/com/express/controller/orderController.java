@@ -6,15 +6,19 @@ import main.com.express.entity.User;
 import main.com.express.service.AddressService;
 import main.com.express.service.OrdersService;
 import main.com.express.service.UserService;
+import net.sf.json.JSON;
+import net.sf.json.JSONObject;
+import org.codehaus.jackson.map.util.JSONPObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.*;
 
 /**
  * Created by linzhijie on 2017/1/1.
@@ -31,23 +35,36 @@ public class orderController {
     @Autowired
     private AddressService addressService;
 
+    @ResponseBody
     @RequestMapping(value = "/add")
-    public String addOrder(Orders orders){
+    public String addOrder(Orders orders , HttpServletResponse response) throws IOException {
+        //返回给前端的json
+        JSONObject jsonObject = new JSONObject();
         String phone = orders.getPhone();
         //前端页面无法获取并传送用户id,唯有重新查询用户信息
         User user = userService.getUserByPhone(phone);
-        orders.setUid(user.getId());
+        int id = user.getId();
+        orders.setUid(id);
         //生成随机数作为单号
         orders.setTransnum(String.valueOf((100000+Math.random()*(999999-100000+1))));//随机数范围：(最小值+Math.random()*(最大值-最小值+1))
         //添加订单
-        ordersService.addOrder(orders);
+        if(ordersService.addOrder(orders)){
+            jsonObject.put("hasAdd","true");
+            jsonObject.put("transnum",orders.getTransnum());
+        }
+
         //获取用户的历史地址，
         Address address = addressService.getAddressByPhone(orders.getPhone());
+
         //若老用户更改地址，则更新地址记录
-        if(address != null && (!orders.getRaddress().equals(address.getRaddress()) || !orders.getSaddress().equals(address.getSaddress()))){
+        //if(address != null && (!orders.getRaddress().equals(address.getRaddress()) || !orders.getSaddress().equals(address.getSaddress()))){
+        if(address != null && address.getId() != null){
+            address.setRaddress(orders.getRaddress());
+            address.setSaddress(orders.getSaddress());
             System.out.print("update");
             addressService.updAddress(address);
         }
+
         //若是新用户，则添加新地址
         else {
             //封装地址
@@ -57,12 +74,14 @@ public class orderController {
             address.setPhone(orders.getPhone());
             addressService.addAddress(address);
         }
-        return "orderhistory";
+        System.out.println(address.getId());
+        return jsonObject.toString();
     }
 
+    @ResponseBody
     @RequestMapping(value = "/list")
-    public @ResponseBody List<Orders> listOrder(String phone){
-        List<Orders> orderses = ordersService.getOrderByphone(phone);
+    public List<Orders> listOrder(String phone){
+        List<Orders> orderses = ordersService.getOrdersByphone(phone);
         return orderses;
     }
 }
