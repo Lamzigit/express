@@ -16,10 +16,10 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "sAddress" , length = 45,nullable = false)
+    @Column(name = "sAddress" , length = 300,nullable = false)
     private String saddress;
 
-    @Column(name = "rAddress" , length = 45,nullable = false)
+    @Column(name = "rAddress" , length = 300,nullable = false)
     private String raddress;
 
     @Column(name = "phone" ,length = 45,nullable = false)
