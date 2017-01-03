@@ -15,10 +15,10 @@ public class Orders {
     @Column(name = "phone" ,length = 45,nullable = false)
     private String phone;
 
-    @Column(name = "sAddress" , length = 45,nullable = false)
+    @Column(name = "sAddress" , length = 300,nullable = false)
     private String saddress;
 
-    @Column(name = "rAddress" , length = 45,nullable = false)
+    @Column(name = "rAddress" , length = 300,nullable = false)
     private String raddress;
 
     @Column(name = "transNum" , length = 45,nullable = false)
