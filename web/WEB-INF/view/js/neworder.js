@@ -20,9 +20,6 @@ orderApp.controller("orderController",function ($scope,$http) {
     function getAddressText(addressObject) {
         return addressObject.province + addressObject.city + addressObject.block + addressObject.number;
     }
-
-
-
     //实时计算价格
     $scope.countPrice = function () {
         if($scope.weight>10&&$scope.weight<50)
