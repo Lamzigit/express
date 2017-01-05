@@ -1,6 +1,7 @@
 package main.com.express.service.serviceImpl;
 
 import main.com.express.dao.AddressDao;
+import main.com.express.dao.daoImpl.AddressDaoImpl;
 import main.com.express.entity.Address;
 import main.com.express.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +15,12 @@ import java.util.List;
 @Service
 public class AddressServiceImpl implements AddressService{
 
-    public void setAddressDao(AddressDao addressDao) {
+    public void setAddressDao(AddressDaoImpl addressDao) {
         this.addressDao = addressDao;
     }
 
     @Autowired
-    private AddressDao addressDao;
+    private AddressDaoImpl addressDao;
 
     @Override
     public Address getAddressByPhone(String phone) {

@@ -19,17 +19,23 @@ import java.util.List;
 @Repository
 public class OrderDaoImpl implements OrderDao{
 
+    @Autowired
+    private SessionFactory sessionFactory;
+
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
-
-    @Autowired
-    private SessionFactory sessionFactory;
 
     @Override
     public List<Orders> getOrdersByphone(String phone) {
         Session session = sessionFactory.openSession();
         return (List<Orders>)session.createCriteria(Orders.class).add(Restrictions.eq("phone",phone)).list();
+    }
+
+    @Override
+    public List<Orders> getOrdersBystate(String state) {
+        Session session = sessionFactory.openSession();
+        return (List<Orders>)session.createCriteria(Orders.class).add(Restrictions.eq("state",state)).list();
     }
 
     @Override

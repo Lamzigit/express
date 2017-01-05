@@ -17,9 +17,18 @@ public class OrderServiceImpl implements OrdersService {
     @Autowired
     private OrderDao orderDao;
 
+    public void setOrderDao(OrderDao orderDao) {
+        this.orderDao = orderDao;
+    }
+
     @Override
     public List<Orders> getOrdersByphone(String phone) {
         return orderDao.getOrdersByphone(phone);
+    }
+
+    @Override
+    public List<Orders> getOrdersBystate(String state) {
+        return orderDao.getOrdersBystate(state);
     }
 
     @Override

@@ -26,7 +26,7 @@
     </div>
 </div>
 <div class="container"  ng-app="orderApp" ng-init="hasAdd=false"  ng-controller="orderController">
-    <div class="row" ng-switch="hasAdd">
+    <div class="row">
         <!--新订单表单-->
         <div class="col-md-6 col-md-offset-1">
             <!--新订单填写-->

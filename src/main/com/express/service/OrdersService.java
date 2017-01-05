@@ -11,6 +11,8 @@ public interface OrdersService {
 
     public List<Orders> getOrdersByphone(String phone);
 
+    public List<Orders> getOrdersBystate(String state);
+
     public List<Orders> getAllOrder();
 
     public boolean addOrder(Orders orders);

@@ -30,10 +30,10 @@ public class ManagerDaoImpl implements ManagerDao{
     }
 
     @Override
-    public Manager getManagerById(int id) {
+    public Manager getManagerByName(String name) {
         Session session = sessionFactory.getCurrentSession();
         //Session session = sessionFactory.openSession();
-        return (Manager)session.createCriteria(Manager.class).add(Restrictions.eq("id",id)).uniqueResult();
+        return (Manager)session.createCriteria(Manager.class).add(Restrictions.eq("name",name)).uniqueResult();
     }
 
     @Override

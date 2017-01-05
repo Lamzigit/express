@@ -9,7 +9,11 @@ import java.util.List;
  */
 public interface ManagerService {
 
-    public Manager getManagerById(int id);
+    public boolean hasManager(Manager manager);
+
+    public boolean checkManager(Manager manager);
+
+    public boolean isSuperManager(Manager manager);
 
     public List<Manager> getAllManager();
 

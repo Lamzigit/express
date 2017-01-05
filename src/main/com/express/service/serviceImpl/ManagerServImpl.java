@@ -17,9 +17,30 @@ public class ManagerServImpl implements ManagerService{
     @Autowired
     private ManagerDao managerDao;
 
+
     @Override
-    public Manager getManagerById(int id) {
-        return managerDao.getManagerById(id);
+    public boolean hasManager(Manager manager) {
+        return managerDao.getManagerByName(manager.getName()) != null;
+    }
+
+    @Override
+    public boolean checkManager(Manager manager){
+        String name = manager.getName();
+        Manager one = managerDao.getManagerByName(name);
+
+        if(one != null) {
+            String onePassword = one.getPassword();
+            System.out.print(manager);
+            System.out.print(manager.getPassword());
+            return manager.getPassword().equals(onePassword);
+        }
+        else
+            return false;
+    }
+
+    @Override
+    public boolean isSuperManager(Manager manager) {
+        return manager.getType() == 1;
     }
 
     @Override

@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface ManagerDao {
 
-    public Manager getManagerById(int id);
+    public Manager getManagerByName(String name);
 
     public List<Manager> getAllManager();
 
