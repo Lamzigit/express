@@ -35,6 +35,13 @@ public class orderController {
     @Autowired
     private AddressService addressService;
 
+    /**
+     * 异步提交订单
+     * @param orders
+     * @param response
+     * @return
+     * @throws IOException
+     */
     @ResponseBody
     @RequestMapping(value = "/add")
     public String addOrder(Orders orders , HttpServletResponse response) throws IOException {
@@ -78,6 +85,11 @@ public class orderController {
         return jsonObject.toString();
     }
 
+    /**
+     * 异步获取历史订单列表
+     * @param phone
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "/list")
     public List<Orders> listOrder(String phone){

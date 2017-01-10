@@ -23,11 +23,18 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/manager")
 public class managerController {
+
     @Autowired
     public ManagerService managerService;
 
     @Autowired
     public OrdersService ordersService;
+
+    /**
+     * 登录  get方法转跳登录页面
+     *      post方法接受管理员信息，验证登录
+     * @return
+     */
 
     @RequestMapping(value = "/login" , method = RequestMethod.GET)
     public String login(){
@@ -37,12 +44,18 @@ public class managerController {
     @RequestMapping(value = "/login" , method = RequestMethod.POST)
     public String doLogin(Manager manager, HttpSession session){
         if(managerService.hasManager(manager)&&managerService.checkManager(manager)){
+            manager.setType(managerService.getManagerByName(manager.getName()).getType());
             session.setAttribute("manager",manager);
             return "console/index";
         }
         return "login";
     }
 
+    /**
+     * 获取未处理订单列表
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/order/undeal")
     public String undealOrder(HttpServletRequest request){
         List<Orders> ordersList= new ArrayList<Orders>();
@@ -51,11 +64,21 @@ public class managerController {
         return "order/undeal";
     }
 
+    /**
+     * 后台修改订单地址
+     * @param address
+     * @return
+     */
     @RequestMapping(value = "/order/address")
     public @ResponseBody String addressOrder(Address address){
         return null;
     }
 
+    /**
+     * 后台添加订单  get方法转跳订单填写页面
+     *             post方法处理提交的订单信息
+     * @return
+     */
     @RequestMapping(value = "/order/add",method = RequestMethod.GET)
     public String addOrder(){
         return "order/add";
@@ -68,21 +91,38 @@ public class managerController {
         return "console-index";
     }
 
+    /**
+     * 获取揽件路线列表
+     * @return
+     */
     @RequestMapping(value = "/route/embrace")
     public String embraceRoute(){
         return "route/embrace";
     }
 
+    /**
+     * 获取派件路线列表
+     * @return
+     */
     @RequestMapping(value = "/route/dispatch")
     public String dispatchRoute(){
         return "route/dispatch";
     }
 
+    /**
+     * 修改管理员权限
+     * @return
+     */
     @RequestMapping(value = "/staff/grade")
     public String gradeStaff(){
         return "staff-grade";
     }
 
+    /**
+     * 添加管理员  get方法转跳添加页面
+     *           post方法处理提交的管理员信息
+     * @return
+     */
     @RequestMapping(value = "/staff/add" , method = RequestMethod.GET)
     public String addStaff(){
         return "staff/add";
@@ -97,6 +137,11 @@ public class managerController {
             return "staff/add";
     }
 
+    /**
+     * 管理员列表
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/staff/list")
     public String listStaff(HttpServletRequest request){
         List<Manager> managerList = managerService.getAllManager();
@@ -104,6 +149,11 @@ public class managerController {
         return "staff/list";
     }
 
+    /**
+     * 删除管理员
+     * @param manager
+     * @return
+     */
     @RequestMapping(value = "/staff/delete")
     public @ResponseBody String deleteStaff(Manager manager){
         if(managerService.delManager(manager.getId()))
